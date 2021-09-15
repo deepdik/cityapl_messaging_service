@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python run.py --host 0.0.0.0:5001
+    volumes:
+      - .:/app
+    restart: on-failure
+    network_mode: "host"
+
+  rabbitmq:
+    image: "rabbitmq:3.8-management"
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=cityapl-rabbitmq  # Adapt the credentials to your needs
+      - RABBITMQ_DEFAULT_PASS=cityapl
+    volumes:
+        - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
+        - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+   
+    network_mode: "host"
