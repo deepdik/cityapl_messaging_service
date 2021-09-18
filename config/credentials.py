@@ -23,7 +23,7 @@ DATABASES = {
         'NAME': 'cityapl',
         'USER': 'myprojectuser',
         'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
+        'HOST': '13.233.128.251',
         'PORT': '5432',
         },
     'mongo': {
