@@ -18,6 +18,7 @@ app = Flask(__name__)
 app.json_encoder = MongoJSONEncoder
 app.url_map.converters['objectid'] = ObjectIdConverter
 
+app.config.from_object('config.credentials')
 app.config.from_object(DevConfig())
 
 # CORS 

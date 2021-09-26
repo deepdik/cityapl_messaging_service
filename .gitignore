@@ -54,3 +54,4 @@ docs/_build/
 /.pydevproject
 .docker/
 .data/
+celerybeat-schedule
