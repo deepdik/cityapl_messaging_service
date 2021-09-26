@@ -12,12 +12,15 @@ services:
     ports: 
       - 5001:5001
     restart: on-failure
+    depends_on:
+      - rabbitmq
+
 
   redis:
     image: redis:latest
     ports:
       - 6378:6379
-  depends_on:
+    depends_on:
       - rabbitmq
 
 
@@ -74,5 +77,4 @@ services:
     volumes:
         - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
         - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
-    depends_on:
 
