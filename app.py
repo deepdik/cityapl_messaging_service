@@ -9,8 +9,9 @@ from config.db_connect import DBConnector, MysqlDBConnector, PostgresDBConnector
 from config.settings import DevConfig
 from utils.middlewares import OperationLogMiddleware
 from utils.utils import MongoJSONEncoder, ObjectIdConverter
-# from flask_caching import Cache
 
+from flask_caching import Cache
+from config.celery.celery import make_celery
 
 # Flask app creation
 app = Flask(__name__)
