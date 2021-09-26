@@ -59,3 +59,18 @@ REDIS_CACHE = {
         'CACHE_REDIS_URL':'redis://localhost:6379/0',
         'CACHE_DEFAULT_TIMEOUT':500
     }
+
+
+REDIS_CACHE = {
+        'CACHE_TYPE':'RedisCache',
+        'CACHE_REDIS_HOST':'redis',
+        'CACHE_REDIS_PORT': 6379,
+        'CACHE_REDIS_DB':0,
+        'CACHE_REDIS_URL':'redis://redis:6379/0',
+        'CACHE_DEFAULT_TIMEOUT':500
+    }
+
+
+CELERY_BROKER_URL= 'amqp://cityapl-rabbitmq:cityapl@168.138.113.89:5672//'
+CELERY_RESULT_BACKEND= 'rpc://'
+CELERY_ACKS_LATE = True

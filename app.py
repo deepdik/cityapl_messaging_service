@@ -30,7 +30,7 @@ api = Api(app, prefix='/api/v1')
 
 print(app.config)
 # Flask Redis Caching
-# cache = Cache(app, config=app.config['CACHE'])
+cache = Cache(app, config=app.config['CACHE'])
 
 # datbase connect
 mongo = DBConnector.connect_with_pool(app)
@@ -39,8 +39,9 @@ mongo = DBConnector.connect_with_pool(app)
 
 postgres = PostgresDBConnector.connect_with_pool(app)
 
+celery = make_celery(app)
+
 #init urls
 from apps.routers import initialize_routes
 initialize_routes(api)
 app.url_map.strict_slashes = False
-

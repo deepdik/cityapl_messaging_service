@@ -5,13 +5,51 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: python3 run.py
+    command: python3 run.py --host 0.0.0.0
+    image: docker-registry.cityapl.com/cityapl_messaging_service
     volumes:
       - .:/app
     ports: 
       - 5001:5001
     restart: on-failure
-    network_mode: host
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: docker-registry.cityapl.com/celery_worker_cityapl_message_service
+    command: /start-celeryworker
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+
+  celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    image: docker-registry.cityapl.com/celery_beat_cityapl_message_service
+    command: /start-celerybeat
+    depends_on:
+      - celery_worker
+      - redis
+
+  flower:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    image: docker-registry.cityapl.com/celery_flower_cityapl_message_service
+    command: /start-flower
+    ports:
+      - 5558:5555
+    depends_on:
+      - celery_worker
+      - redis
+   
 
   rabbitmq:
     image: "rabbitmq:3.8-management"
@@ -25,5 +63,3 @@ services:
     volumes:
         - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
         - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
-   
-    network_mode: host
