@@ -21,7 +21,7 @@ sudo docker-compose down
 sudo docker image prune -f 
 sudo docker login https://docker-registry.cityapl.com -u cityapl_docker_registry -p ${DOCKER_CRED}
 sudo docker-compose pull
-sudo docker-compose up -d
+sudo docker-compose up
 
 exit
 
